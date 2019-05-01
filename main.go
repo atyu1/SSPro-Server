@@ -3,7 +3,6 @@ package main
 import(
 	"html/template"
 	"net/http"
-	"log"
 	"fmt"
 )
 
@@ -11,7 +10,7 @@ var tpl *template.Template
 
 func init() {
 	tpl = template.Must(template.ParseFiles("./templates/index.gohtml"))
-	fmt.Println(config.Encs01)
+	fmt.Println("Init done")
 }
 
 func homePage(w http.ResponseWriter, r *http.Request) {
