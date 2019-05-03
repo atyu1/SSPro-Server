@@ -1,9 +1,13 @@
 #Base image
-FROM golang:1.9.2-alpine3.6 AS build
+FROM scratch
+
+#Workdir is /usr/app
+WORKDIR /usr/app
 
 #Copy the code 
-COPY main /root/
-COPY templates /root/
+COPY main .
+COPY templates templates
 
 # Default command
-CMD ["/root/main"]
+CMD ["/usr/app/main"]
+
