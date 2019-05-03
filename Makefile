@@ -24,3 +24,6 @@ run:
 
 clean:
 	rm -rf ./$(GOMAINFILE)	
+
+push:
+	git push -u origin master
