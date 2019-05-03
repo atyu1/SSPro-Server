@@ -7,7 +7,7 @@ GOCMDGET=go get
 
 PORT=8080
 
-all: build-linux build-container
+instal: build-linux build-container
 
 #Build go package for linux platform
 build-linux:
@@ -22,6 +22,9 @@ build-container:
 run:
 	$(DOCKERRUNCMD) -p $(PORT):$(PORT) $(DOCKERNAME)
 
+#ToDo: Add deploy 
+
+#Clean binaries + conatiners
 clean:
 	rm -rf ./$(GOMAINFILE)	
 	docker system prune -f
@@ -29,3 +32,9 @@ clean:
 push:
 	git push -u origin master
 
+
+help:
+	@echo "all    - build go for linux + docker container"
+	@echo "run    - start docker container"
+	@echo "clean  - remove go binaries + containers"
+	@echo "push   - git push commits to git"
