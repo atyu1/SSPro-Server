@@ -16,5 +16,5 @@ func main() {
 	router := httprouter.New()
 	router.GET("/test", Index)
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", router)
 }
