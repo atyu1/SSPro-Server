@@ -1,1 +1,1 @@
-alias gobld='CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o'
+alias gobld='CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o '
