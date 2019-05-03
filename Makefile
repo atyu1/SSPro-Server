@@ -24,6 +24,8 @@ run:
 
 clean:
 	rm -rf ./$(GOMAINFILE)	
+	docker system prune -f
 
 push:
 	git push -u origin master
+
