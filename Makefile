@@ -1,11 +1,19 @@
+# ------ VARIABLES ------------
 DOCKERBUILDCMD=docker build
 DOCKERRUNCMD=docker run
 DOCKERNAME=atyu/sspt-collector
 GOMAINFILE=main
 GOCMDLINUX=CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
 GOCMDGET=go get
-
 PORT=8080
+
+# ------- MAIN SECTION ---------
+help:
+	@echo "all    - build go for linux + docker container"
+	@echo "run    - start docker container"
+	@echo "clean  - remove go binaries + containers"
+	@echo "push   - git push commits to git"
+	@echo "test-local - test localy the code"
 
 instal: build-linux build-container
 
@@ -32,9 +40,10 @@ clean:
 push:
 	git push -u origin master
 
+#------ TESTS ------
+test-local: test-local-api
 
-help:
-	@echo "all    - build go for linux + docker container"
-	@echo "run    - start docker container"
-	@echo "clean  - remove go binaries + containers"
-	@echo "push   - git push commits to git"
+test-local-api:
+	curl http://localhost:$(PORT)/test
+	
+
