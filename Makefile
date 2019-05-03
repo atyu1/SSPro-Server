@@ -19,3 +19,6 @@ build-container:
 #Run a container
 run:
 	$(DOCKERRUNCMD) -p $(PORT):$(PORT) $(DOCKERNAME)
+
+clean:
+	rm -rf ./$(GOMAINFILE)	
