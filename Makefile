@@ -1,5 +1,5 @@
-DOCKERBUILDCMD=sudo docker build
-DOCKERRUNCMD=sudo docker run
+DOCKERBUILDCMD=docker build
+DOCKERRUNCMD=docker run
 DOCKERNAME=atyu/sspt-collector
 GOMAINFILE=main
 GOCMDLINUX=CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
