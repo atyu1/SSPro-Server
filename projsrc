@@ -1,0 +1,7 @@
+#Go shorts
+alias gobld='CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o '
+
+#Git shorts
+alias gs='git status'
+alias ga='git add'
+alias gm='git commit -m'
