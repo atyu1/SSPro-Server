@@ -1,7 +1,7 @@
 # ------ VARIABLES ------------
 DOCKERBUILDCMD=docker build
 DOCKERRUNCMD=docker run
-DOCKERNAME=atyu/sspt-collector
+DOCKERNAME=atyu/sspro-server
 GOMAINFILE=main
 GOCMDLINUX=CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
 GOCMDGET=go get
@@ -15,7 +15,7 @@ help:
 	@echo "push   - git push commits to git"
 	@echo "test-local - test localy the code"
 
-instal: build-linux build-container
+install: build-linux build-container
 
 #Build go package for linux platform
 build-linux:
