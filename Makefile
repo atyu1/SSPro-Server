@@ -9,11 +9,14 @@ PORT=8080
 
 # ------- MAIN SECTION ---------
 help:
-	@echo "all    - build go for linux + docker container"
-	@echo "run    - start docker container"
-	@echo "clean  - remove go binaries + containers"
-	@echo "push   - git push commits to git"
-	@echo "test-local - test localy the code"
+	@echo "all    	    - build go for linux + docker container + run"
+	@echo "install	    - build go fo linux + docker container"
+	@echo "run          - start docker container"
+	@echo "clean        - remove go binaries + containers"
+	@echo "push         - git push commits to git"
+	@echo "test-local   - test localy the code"
+
+all: install run
 
 install: build-linux build-container
 
