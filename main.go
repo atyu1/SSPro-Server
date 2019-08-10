@@ -14,8 +14,12 @@ func main() {
 	var dataPointGet = datapoints.DataPointGet
 
 	router := httprouter.New()
-	router.GET("/test", dataPointHandler)
-	router.GET("/datapoints/:room", dataPointGet)
+	router.GET("/datapoints/:location", dataPointGet)
+	router.GET("/datapoints/:location/:room", dataPointGet)
+	router.GET("/datapoints/:location/:room/:name", dataPointGet)
+
+	router.POST("/datapoints", 
+	
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
