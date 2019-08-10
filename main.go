@@ -2,17 +2,20 @@ package main
 
 import(
 	"net/http"
-	"fmt"
-	"datapoints/datapoints"
+	"log"
+	"github.com/atyu1/SSPro-Server/datapoints"
+	"github.com/julienschmidt/httprouter"
 )
 
 
 func main() {
 
-	var d datapoint
-	
-	router := http.NewServeMux()
-	router.Handle("/test", d)
+	var dataPointHandler = datapoints.DataPointHandler
+	var dataPointGet = datapoints.DataPointGet
 
-	http.ListenAndServe(":8080", router)
+	router := httprouter.New()
+	router.GET("/test", dataPointHandler)
+	router.GET("/datapoints/:room", dataPointGet)
+
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
