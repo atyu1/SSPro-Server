@@ -3,18 +3,16 @@ package main
 import(
 	"net/http"
 	"fmt"
-
-	"github.com/julienschmidt/httprouter"
+	"datapoints/datapoints"
 )
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
-}
 
 func main() {
+
+	var d datapoint
 	
-	router := httprouter.New()
-	router.GET("/test", Index)
+	router := http.NewServeMux()
+	router.Handle("/test", d)
 
 	http.ListenAndServe(":8080", router)
 }
