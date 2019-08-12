@@ -1,14 +1,13 @@
 package datapoints
 
 import (
-	"net/http"
-	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"github.com/atyu1/SSPro-Server/utils"
+	"github.com/jinzhu/gorm"
 )
 
 
 type Datapoint struct {
+	gorm.Model
 	Location string  `json:"location"`
 	Room     string  `json:"room"`
 	Name     string  `json:"name"`
@@ -16,43 +15,51 @@ type Datapoint struct {
 	Value    float64 `json:"value"`
 }
 
+type Datapoints struct {
+	Data []Datapoint `json: "data"`
+}
+
+/*
+Validate function checks the required parameters in http request body and checks if data is not missing
+
+returns message and true if all the data is correct and not missing
+*/
 func (d *Datapoint) Validate() (map[string]interface{}, bool) {
 	
 	if d.Location == "" {
-		return u.Message(false, "Location is empty"), false
+		return utils.Message(false, "Location is empty"), false
 	}
 
 	if d.Room == "" {
-		return u.Message(false, "Room is empty"), false
+		return utils.Message(false, "Room is empty"), false
 	}
 
 	if d.Name == "" {
-		return u.Message(false, Name is empty"), false
+		return utils.Message(false, "Name is empty"), false
 	}
 
 	if d.Sensor == "" {
-		return u.Message(false, Sensor is empty"), false
+		return utils.Message(false, "Sensor is empty"), false
 	}
 
-	return u.Message(true, "success"), true
+	return utils.Message(true, "success"), true
 }
 
 
-func (d *Datapoint) Save (
+/*
+Save datapoint to the database 
 
-func DataPointHandler(res http.ResponseWriter, req *http.Request, param httprouter.Params) {
-	// ToDo:
-	// 1. Parse data
-	// 2. Get data point
-	// 3. Save to datapoint variable
-	// 4. Return datapoint
+returns message about success
+*/
+func (ds *Datapoints) Save() (map[string] interface{}) {
 
-	fmt.Fprintf(res, "test\nJOJO\n")
+	for _, d := range ds.Data {	
+		if _, ok := d.Validate(); ok {
+			GetDb().Create(ds)
+		}
+	}
+
+	resp := utils.Message(true, "DataPoints created")		
+	return resp
 }
 
-func DataPointGet(res http.ResponseWriter, req *http.Request, param httprouter.Params) {
-	// Same todo
-	
-	roomname := param.ByName("room")
-	fmt.Fprintf(res, "GO GET IT: %s!\n", roomname)
-}
