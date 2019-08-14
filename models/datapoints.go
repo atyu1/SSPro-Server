@@ -1,13 +1,13 @@
 package datapoints
 
 import (
+	"fmt"
 	"github.com/atyu1/SSPro-Server/utils"
-	"github.com/jinzhu/gorm"
+	//"github.com/jinzhu/gorm"
 )
 
-
 type Datapoint struct {
-	gorm.Model
+	//gorm.Model
 	Location string  `json:"location"`
 	Room     string  `json:"room"`
 	Name     string  `json:"name"`
@@ -16,7 +16,7 @@ type Datapoint struct {
 }
 
 type Datapoints struct {
-	Data []Datapoint `json: "data"`
+	Data []Datapoint `json:"data"`
 }
 
 /*
@@ -25,7 +25,7 @@ Validate function checks the required parameters in http request body and checks
 returns message and true if all the data is correct and not missing
 */
 func (d *Datapoint) Validate() (map[string]interface{}, bool) {
-	
+
 	if d.Location == "" {
 		return utils.Message(false, "Location is empty"), false
 	}
@@ -45,21 +45,20 @@ func (d *Datapoint) Validate() (map[string]interface{}, bool) {
 	return utils.Message(true, "success"), true
 }
 
-
 /*
-Save datapoint to the database 
+Save datapoint to the database
 
 returns message about success
 */
-func (ds *Datapoints) Save() (map[string] interface{}) {
+func (ds *Datapoints) Save() map[string]interface{} {
 
-	for _, d := range ds.Data {	
+	for _, d := range ds.Data {
 		if _, ok := d.Validate(); ok {
-			GetDb().Create(ds)
+			fmt.Printf("\n-- %v\n", d)
+			GetDb().Create(d)
 		}
 	}
 
-	resp := utils.Message(true, "DataPoints created")		
+	resp := utils.Message(true, "DataPoints created")
 	return resp
 }
-
