@@ -1,13 +1,16 @@
 #Base image
-FROM scratch
+FROM alpine:latest
+MAINTAINER atyu atyu1@github.com
 
 #Workdir is /usr/app
 WORKDIR /usr/app
 
 #Copy the code 
 COPY main .
-COPY templates templates
+COPY config.yaml .
+
+EXPOSE 8080
 
 # Default command
-CMD ["/usr/app/main"]
+CMD ["./main"]
 
