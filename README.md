@@ -15,7 +15,7 @@ Datapoints needs to have following format:
 
 datapointX structure:
 ```
-  { 'timestamp':<int>
+  { 'timestamp':<int>,
     'location':<string>,
     'room':<string>,
     'name':<string>,
