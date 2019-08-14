@@ -1,0 +1,8 @@
+---
+dbuser: admin
+dbpass: admin
+dbtype: sqlite3
+dbname: test.db
+dbhost: localhost
+dbport: -1
+dbpath: /db
