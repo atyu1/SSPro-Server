@@ -15,11 +15,12 @@ Datapoints needs to have following format:
 
 datapointX structure:
 ```
-  { 'location':<string>,
+  { 'timestamp':<int>
+    'location':<string>,
     'room':<string>,
     'name':<string>,
     'sensor':<string>,
-    'value':<string>
+    'value':<real/float>
   }
 ```
 
