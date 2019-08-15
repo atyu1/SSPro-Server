@@ -7,6 +7,8 @@ GOCMDLINUX=GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
 GOCMDGET=go get
 PORT=8080
 
+TS=$(shell /bin/date +%s)
+
 # ------- MAIN SECTION ---------
 help:
 	@echo "all    	    - build go for linux + docker container + run"
@@ -47,7 +49,7 @@ push:
 test-api: test-post test-get-all
 
 test-post:
-	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
+	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"timestamp":$(TS), "location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
 
 test-get-all:
 	curl http://localhost:8080/datapoints/all

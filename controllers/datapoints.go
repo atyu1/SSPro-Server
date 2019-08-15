@@ -18,7 +18,6 @@ func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	}
 	resp := utils.Message(true, "Data Collected")
 	resp["data"] = data
-	fmt.Printf("## %v\n", resp)
 	utils.Respond(w, resp)
 }
 

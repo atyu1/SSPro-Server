@@ -1,13 +1,13 @@
 package datapoints
 
 import (
-	"fmt"
 	"github.com/atyu1/SSPro-Server/utils"
 	//"github.com/jinzhu/gorm"
 )
 
 type Datapoint struct {
 	//gorm.Model
+	Timestamp int	 `json:"timestamp"`
 	Location string  `json:"location"`
 	Room     string  `json:"room"`
 	Name     string  `json:"name"`
@@ -25,7 +25,9 @@ Validate function checks the required parameters in http request body and checks
 returns message and true if all the data is correct and not missing
 */
 func (d *Datapoint) Validate() (map[string]interface{}, bool) {
-
+	if d.Timestamp <= 0 {
+		return utils.Message(false, "Location is empty"), false
+	}
 	if d.Location == "" {
 		return utils.Message(false, "Location is empty"), false
 	}
@@ -54,7 +56,7 @@ func (ds *Datapoints) Save() map[string]interface{} {
 
 	for _, d := range ds.Data {
 		if _, ok := d.Validate(); ok {
-			fmt.Printf("\n-- %v\n", d)
+			// Todo Add log for Validation results
 			GetDb().Create(d)
 		}
 	}
