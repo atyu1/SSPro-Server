@@ -62,3 +62,19 @@ func (ds *Datapoints) Save() map[string]interface{} {
 	resp := utils.Message(true, "DataPoints created")
 	return resp
 }
+
+/*
+GetDataPoints function query the database and getting datapoints based on varariables
+
+returns list of datapoints which fetch the query
+*/
+func GetDataPoints(query string) (Datapoints, error) {
+	var err error
+	datapoints := []Datapoint{} 
+
+	if query == "" { 
+        	err = GetDb().Table("datapoints").Find(&datapoints).Error
+	}
+
+        return Datapoints{Data: datapoints}, err
+}

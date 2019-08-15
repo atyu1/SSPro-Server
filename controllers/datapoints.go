@@ -10,24 +10,18 @@ import (
 	"net/http"
 )
 
-/*
-func DataPointHandler(res http.ResponseWriter, req *http.Request, param httprouter.Params) {
-        // ToDo:
-        // 1. Parse data
-        // 2. Get data point
-        // 3. Save to datapoint variable
-        // 4. Return datapoint
 
-        fmt.Fprintf(res, "test\nJOJO\n")
+func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
+	data, err := datapoints.GetDataPoints("")
+	if err != nil {
+		utils.Respond(w, utils.Message(false, err.Error()))
+	}
+	resp := utils.Message(true, "Data Collected")
+	resp["data"] = data
+	fmt.Printf("## %v\n", resp)
+	utils.Respond(w, resp)
 }
 
-func DataPointGet(res http.ResponseWriter, req *http.Request, param httprouter.Params) {
-        // Same todo
-
-        roomname := param.ByName("room")
-        fmt.Fprintf(res, "GO GET IT: %s!\n", roomname)
-}
-*/
 
 func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 
@@ -40,6 +34,5 @@ func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 		return
 	}
 	resp := tmpdatapoints.Save()
-	fmt.Printf("We are here")
 	utils.Respond(w, resp)
 }

@@ -20,6 +20,7 @@ func main() {
 	datapoints.InitDb(config)
 
 	router := httprouter.New()
+	router.GET("/datapoints/all", controllers.GetDataPointAll)
 	//router.GET("/datapoints/:location", dataPointGet)
 	//router.GET("/datapoints/:location/:room", dataPointGet)
 	//router.GET("/datapoints/:location/:room/:name", dataPointGet)
