@@ -3,7 +3,7 @@ DOCKERBUILDCMD=docker build
 DOCKERRUNCMD=docker run
 DOCKERNAME=atyu/sspro-server
 GOMAINFILE=main
-GOCMDLINUX=CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
+GOCMDLINUX=GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
 GOCMDGET=go get
 PORT=8080
 
@@ -31,7 +31,7 @@ build-container:
 
 #Run a container
 run:
-	$(DOCKERRUNCMD) --rm --name sspro-server -p $(PORT):$(PORT) -v /tmp/test.db:/db/test.db $(DOCKERNAME)
+	$(DOCKERRUNCMD) --rm -it --name sspro-server -p $(PORT):$(PORT) -v /tmp/test.db:/db/test.db $(DOCKERNAME)
 
 #ToDo: Add deploy 
 
@@ -50,5 +50,5 @@ test-local-api:
 	curl http://localhost:$(PORT)/test
 	
 test-post:
-	 curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
+	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
 
