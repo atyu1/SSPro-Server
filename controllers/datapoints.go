@@ -3,13 +3,12 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"github.com/atyu1/SSPro-Server/models"
 	"github.com/atyu1/SSPro-Server/utils"
 	"github.com/julienschmidt/httprouter"
+	"log"
 	"net/http"
 )
-
 
 func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 	data, err := datapoints.GetDataPoints("")
@@ -20,7 +19,6 @@ func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	resp["data"] = data
 	utils.Respond(w, resp)
 }
-
 
 func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 

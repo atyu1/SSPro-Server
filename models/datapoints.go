@@ -7,12 +7,12 @@ import (
 
 type Datapoint struct {
 	//gorm.Model
-	Timestamp int	 `json:"timestamp"`
-	Location string  `json:"location"`
-	Room     string  `json:"room"`
-	Name     string  `json:"name"`
-	Sensor   string  `json:"sensor"`
-	Value    float64 `json:"value"`
+	Timestamp int     `json:"timestamp"`
+	Location  string  `json:"location"`
+	Room      string  `json:"room"`
+	Name      string  `json:"name"`
+	Sensor    string  `json:"sensor"`
+	Value     float64 `json:"value"`
 }
 
 type Datapoints struct {
@@ -72,11 +72,11 @@ returns list of datapoints which fetch the query
 */
 func GetDataPoints(query string) (Datapoints, error) {
 	var err error
-	datapoints := []Datapoint{} 
+	datapoints := []Datapoint{}
 
-	if query == "" { 
-        	err = GetDb().Table("datapoints").Find(&datapoints).Error
+	if query == "" {
+		err = GetDb().Table("datapoints").Find(&datapoints).Error
 	}
 
-        return Datapoints{Data: datapoints}, err
+	return Datapoints{Data: datapoints}, err
 }
