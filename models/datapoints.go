@@ -70,13 +70,41 @@ GetDataPoints function query the database and getting datapoints based on varari
 
 returns list of datapoints which fetch the query
 */
-func GetDataPoints(query string) (Datapoints, error) {
+func GetDataPoints(query []int, params []string) (Datapoints, error) {
 	var err error
-	datapoints := []Datapoint{}
+	var (
+		location string
+		room	string
+		name string
+	)
 
-	if query == "" {
-		err = GetDb().Table("datapoints").Find(&datapoints).Error
+	for index, value := range params {
+		switch index {
+			case 1:
+				location = value
+			case 2: 
+				room = value
+			case 3:
+				name = value
+		}
 	}
 
+	datapoints := []Datapoint{}
+
+	err = getAllDatapoints(&datapoints, location, room, name)	
+
 	return Datapoints{Data: datapoints}, err
+}
+
+
+/// ----------------------- Helper functions --------------
+/*getAllDatapoints is a helper fucntion for GetDataPoints used to get All (not per timestamp) datapoints for specific location, room, name
+
+ returns error if datapoints are not collected, 
+*/
+func getAllDatapoints(dbpoints *[]Datapoint, location string, room string, name string) (error) {
+	params := &Datapoint{Location: location, Room: room, Name: name}
+
+	err := GetDb().Where(params).Find(&dbpoints).Error
+	return err
 }

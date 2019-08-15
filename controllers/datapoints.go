@@ -2,16 +2,21 @@ package controllers
 
 import (
 	"encoding/json"
+	"strings"
+	"log"
 	"fmt"
+	"net/http"
 	"github.com/atyu1/SSPro-Server/models"
 	"github.com/atyu1/SSPro-Server/utils"
 	"github.com/julienschmidt/httprouter"
-	"log"
-	"net/http"
 )
 
 func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
-	data, err := datapoints.GetDataPoints("")
+
+	tmp := param.ByName("location")
+	params := strings.Split(tmp, "/")
+
+	data, err := datapoints.GetDataPoints([]int{}, params)
 	if err != nil {
 		utils.Respond(w, utils.Message(false, err.Error()))
 	}
