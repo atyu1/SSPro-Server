@@ -44,11 +44,10 @@ push:
 	git push -u origin master
 
 #------ TESTS ------
-test-local: test-local-api
+test-api: test-post test-get-all
 
-test-local-api:
-	curl http://localhost:$(PORT)/test
-	
 test-post:
 	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
 
+test-get-all:
+	curl http://localhost:8080/datapoints/all
