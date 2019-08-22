@@ -52,4 +52,4 @@ test-post:
 	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"timestamp":$(TS), "location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
 
 test-get-all:
-	curl http://localhost:8080/datapoints/all
+	curl http://localhost:8080/datapoints/all/
