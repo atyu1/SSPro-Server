@@ -2,11 +2,9 @@ package datapoints
 
 import (
 	"github.com/atyu1/SSPro-Server/utils"
-	//"github.com/jinzhu/gorm"
 )
 
 type Datapoint struct {
-	//gorm.Model
 	Timestamp int     `json:"timestamp"`
 	Location  string  `json:"location"`
 	Room      string  `json:"room"`

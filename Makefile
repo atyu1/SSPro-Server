@@ -33,7 +33,7 @@ build-container:
 
 #Run a container
 run:
-	$(DOCKERRUNCMD) --rm -it --name sspro-server -p $(PORT):$(PORT) -v /tmp/test.db:/db/test.db $(DOCKERNAME)
+	$(DOCKERRUNCMD) --rm -it --name sspro-server -p $(PORT):$(PORT) -v /db/test.db:/db/test.db $(DOCKERNAME)
 
 #ToDo: Add deploy 
 
@@ -46,7 +46,7 @@ push:
 	git push -u origin master
 
 #------ TESTS ------
-test-api: test-post test-get-all
+test-local: test-post test-get-all
 
 test-post:
 	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"timestamp":$(TS), "location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'

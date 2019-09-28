@@ -21,9 +21,6 @@ func main() {
 
 	router := httprouter.New()
 	router.GET("/datapoints/all/*location", controllers.GetDataPointAll)
-	//router.GET("/datapoints/:location", dataPointGet)
-	//router.GET("/datapoints/:location/:room", dataPointGet)
-	//router.GET("/datapoints/:location/:room/:name", dataPointGet)
 
 	router.POST("/datapoints", controllers.CreateDataPoint)
 
