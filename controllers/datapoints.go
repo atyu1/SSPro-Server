@@ -19,6 +19,7 @@ func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	data, err := datapoints.GetDataPoints([]int{}, params)
 	if err != nil {
 		utils.Respond(w, utils.Message(false, err.Error()))
+		return
 	}
 	resp := utils.Message(true, "Data Collected")
 	resp["data"] = data
@@ -37,4 +38,9 @@ func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	}
 	resp := tmpdatapoints.Save()
 	utils.Respond(w, resp)
+}
+
+func Login(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
+	
+	// Finish login and return JWT token
 }
