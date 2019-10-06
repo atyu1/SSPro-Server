@@ -3,8 +3,8 @@ package authentication
 import (
 	"net/http"
 	"strings"
-	"github.com/atyu1/utils"
-	"github.com/julienschnidt/httprouter"
+	"github.com/atyu1/SSPro-Server/utils"
+	"github.com/julienschmidt/httprouter"
  	"github.com/atyu1/SSPro-Server/models"
 	jwt "github.com/dgrijalva/jwt-go"
 )
@@ -18,7 +18,7 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 		tokenHeader := param.ByName("Authorization")
 
 		// If Token is missing
-		if tokenHeader := "" {
+		if tokenHeader == "" {
 			statusForbiden("Missing Authorization Header", w)
 			return
 		}
@@ -43,7 +43,7 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 				if ve.Errors&jwt.ValidationErrorMalformet != 0 {
 					statusForbiden("This is not token, token is totally malformed",w)
 				} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) {
-					statusForbiden("Token is either expired or not valid yet!, w)
+					statusForbiden("Token is either expired or not valid yet!", w)
 				} else {
 					statusForbiden("Issues with the provided token", w)
 				}
@@ -66,7 +66,7 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 // statusForbiden is used in any authentication issues related problems
 // We call with text and http response writer to send back a specific issue with 403 code
 func statusForbiden(text String, w http.ResponseWriter) {
-	response := u.Message(false, "Invalid/Malformed token"
+	response := u.Message(false, text)
 	w.WriteHeader(http.StatusForbiden)
 	w.Header().Add("Content-Type", "application/json")
 	utils.Respond(w, response)
