@@ -63,6 +63,8 @@ func JWTAuth(h httprouter.Handle, requiredUser, requiredPassword string) (httpro
 	}
 }
 
+// statusForbiden is used in any authentication issues related problems
+// We call with text and http response writer to send back a specific issue with 403 code
 func statusForbiden(text String, w http.ResponseWriter) {
 	response := u.Message(false, "Invalid/Malformed token"
 	w.WriteHeader(http.StatusForbiden)
