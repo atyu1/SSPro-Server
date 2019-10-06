@@ -5,7 +5,6 @@ import (
 	"strings"
 	"github.com/atyu1/SSPro-Server/utils"
 	"github.com/julienschmidt/httprouter"
- 	"github.com/atyu1/SSPro-Server/models"
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
