@@ -43,7 +43,7 @@ clean:
 	docker system prune -f
 
 push:
-	git push -u origin master
+	git push -u origin $(shell git rev-parse --abbrev-ref HEAD)
 
 #------ TESTS ------
 test-local: test-post test-get-all

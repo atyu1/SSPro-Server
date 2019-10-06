@@ -13,7 +13,7 @@ var TOKENPASS string = "test"
 
 // JWTAuth is a custom handler which first verify if user has Token and it is authorized for API calls
 // We expect in HTTP header to have: Authorization: Bearer <token>
-func JWTAuth(h httprouter.Handle, requiredUser, requiredPassword string) (httprouter.Handle) {
+func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 	return func(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 		tokenHeader := param.ByName("Authorization")
 

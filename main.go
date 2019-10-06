@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/atyu1/SSPro-Server/controllers"
 	"github.com/atyu1/SSPro-Server/models"
+	"github.com/atyu1/SSPro-Server/auth"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
@@ -20,7 +21,8 @@ func main() {
 	datapoints.InitDb(config)
 
 	router := httprouter.New()
-	router.GET("/datapoints/all/*location", controllers.GetDataPointAll)
+	router.POST("/datapoints/login", controllers.Login)
+	router.GET("/datapoints/all/*location", authentication.JWTAuth(controllers.GetDataPointAll))
 
 	router.POST("/datapoints", controllers.CreateDataPoint)
 
