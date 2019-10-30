@@ -25,14 +25,14 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 
 		// If Token has invalid format
 		// Expected to see in JWT tokens "Bearer <token>"
-		splittedToken := strings.Spit(tokenHeader, " ")
+		splittedToken := strings.Split(tokenHeader, " ")
 		if len(splittedToken) != 2 {
 			statusForbiden("Authorization header is not in expected format", w)
 			return
 		}
 
 		tokenTmp := splittedToken[1] // Remove Bearer
-		tk := &authentication.Token{}
+		tk := &models.Token{}
 
 		token, err := jwt.ParseWithClaims(tokenTmp, tk, func(token *jwt.Token) (interface{}, error) {
 			return[]byte(TOKENPASS), nil
@@ -40,9 +40,9 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 
 		if err != nil {
 			if ve, ok := err.(*jwt.ValidationError); ok {
-				if ve.Errors&jwt.ValidationErrorMalformet != 0 {
+				if ve.Errors & jwt.ValidationErrorMalformed != 0 {
 					statusForbiden("This is not token, token is totally malformed",w)
-				} else if ve.Errors&(jwt.ValidationErrorExpired|jwt.ValidationErrorNotValidYet) {
+				} else if ve.Errors & (jwt.ValidationErrorExpired | jwt.ValidationErrorNotValidYet) != 0 {
 					statusForbiden("Token is either expired or not valid yet!", w)
 				} else {
 					statusForbiden("Issues with the provided token", w)
@@ -65,9 +65,9 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 
 // statusForbiden is used in any authentication issues related problems
 // We call with text and http response writer to send back a specific issue with 403 code
-func statusForbiden(text String, w http.ResponseWriter) {
-	response := u.Message(false, text)
-	w.WriteHeader(http.StatusForbiden)
+func statusForbiden(text string, w http.ResponseWriter) {
+	response := utils.Message(false, text)
+	w.WriteHeader(http.StatusForbidden)
 	w.Header().Add("Content-Type", "application/json")
 	utils.Respond(w, response)
 }

@@ -16,7 +16,7 @@ func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	tmp := param.ByName("location")
 	params := strings.Split(tmp, "/")
 
-	data, err := datapoints.GetDataPoints([]int{}, params)
+	data, err := models.GetDataPoints([]int{}, params)
 	if err != nil {
 		utils.Respond(w, utils.Message(false, err.Error()))
 		return
@@ -28,7 +28,7 @@ func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 
 func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 
-	tmpdatapoints := &datapoints.Datapoints{}
+	tmpdatapoints := &models.Datapoints{}
 
 	err := json.NewDecoder(r.Body).Decode(tmpdatapoints)
 	if err != nil {
@@ -40,7 +40,3 @@ func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	utils.Respond(w, resp)
 }
 
-func Login(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
-	
-	// Finish login and return JWT token
-}

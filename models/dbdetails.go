@@ -1,4 +1,4 @@
-package datapoints
+package models
 
 import (
 	"github.com/go-yaml/yaml"

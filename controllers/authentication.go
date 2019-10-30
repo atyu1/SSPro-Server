@@ -1,4 +1,4 @@
-package authentication
+package controllers
 
 import (
 	"net/http"
@@ -13,11 +13,11 @@ var tokenPassword string = "ThisIsTokenPasswordTemporary"
 //Login is a function to login through HTTP parameters
 func Login(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 
-	user := &authentication.User{} //From models
+	user := &models.User{} //From models
 	err := json.NewDecoder(r.Body).Decode(user)
 	if err != nil {
-		return utils.Message(false, "Invalid login request")
+		utils.Respond(w, utils.Message(false, "Invalid request"))
 	}
-	resp := authentication.Login(user.Email, user.Password, tokenPassword)
+	resp := models.Login(user.Email, user.Password, tokenPassword)
 	utils.Respond(w, resp)
 }

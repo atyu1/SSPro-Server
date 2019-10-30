@@ -25,6 +25,7 @@ install: build-linux build-container
 #Build go package for linux platform
 build-linux:
 	$(GOCMDGET) "github.com/julienschmidt/httprouter"
+	$(GOCMDGET) "golang.org/x/crypto/bcrypt"
 	$(GOCMDLINUX)
 
 #Create a docker container

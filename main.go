@@ -14,11 +14,11 @@ func main() {
 	//ToDo: Change to ENV or so
 	CONFIG_FILE := "./config.yaml"
 
-	config := datapoints.DbAccess{}
+	config := models.DbAccess{}
 	config.Init(CONFIG_FILE)
 
 	//sqlite3 used
-	datapoints.InitDb(config)
+	models.InitDb(config)
 
 	router := httprouter.New()
 	router.POST("/datapoints/login", controllers.Login)
@@ -27,5 +27,5 @@ func main() {
 	router.POST("/datapoints", controllers.CreateDataPoint)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
-	datapoints.GetDb().Close()
+	models.GetDb().Close()
 }
