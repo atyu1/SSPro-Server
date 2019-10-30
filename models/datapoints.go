@@ -103,6 +103,6 @@ func GetDataPoints(query []int, params []string) (Datapoints, error) {
 func getAllDatapoints(dbpoints *[]Datapoint, location string, room string, name string) (error) {
 	params := &Datapoint{Location: location, Room: room, Name: name}
 
-	err := GetDb().Where(params).Find(&dbpoints).Error
+	err := GetDb().Table("Datapoints").Where(params).Find(&dbpoints).Error
 	return err
 }
