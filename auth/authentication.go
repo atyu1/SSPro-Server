@@ -32,7 +32,7 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 		}
 
 		tokenTmp := splittedToken[1] // Remove Bearer
-		tk := &models.Token{}
+		tk := &authentication.Token{}
 
 		token, err := jwt.ParseWithClaims(tokenTmp, tk, func(token *jwt.Token) (interface{}, error) {
 			return[]byte(TOKENPASS), nil
