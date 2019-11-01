@@ -3,7 +3,6 @@ package authentication
 import (
 	"net/http"
 	"strings"
-	"fmt"
 	"github.com/golang/glog"
 	"github.com/atyu1/SSPro-Server/utils"
 	"github.com/julienschmidt/httprouter"
