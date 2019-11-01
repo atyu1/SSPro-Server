@@ -21,10 +21,9 @@ func main() {
 	models.InitDb(config)
 
 	router := httprouter.New()
-	router.POST("/datapoints/login", controllers.Login)
+	router.POST("/login", controllers.Login)
 	router.GET("/datapoints/all/*location", authentication.JWTAuth(controllers.GetDataPointAll))
-
-	router.POST("/datapoints", controllers.CreateDataPoint)
+	router.POST("/datapoints", authentication.JWTAuth(controllers.CreateDataPoint))
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 	models.GetDb().Close()
