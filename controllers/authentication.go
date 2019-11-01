@@ -7,7 +7,7 @@ import (
         "github.com/atyu1/SSPro-Server/utils"
         "github.com/julienschmidt/httprouter"
 )
-
+//ToDo Add to config file
 var tokenPassword string = "ThisIsTokenPasswordTemporary"
 
 //Login is a function to login through HTTP parameters
@@ -17,7 +17,8 @@ func Login(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
 	err := json.NewDecoder(r.Body).Decode(user)
 	if err != nil {
 		utils.Respond(w, utils.Message(false, "Invalid request"))
+	} else {
+		resp := models.Login(user.Email, user.Password, tokenPassword)
+		utils.Respond(w, resp)
 	}
-	resp := models.Login(user.Email, user.Password, tokenPassword)
-	utils.Respond(w, resp)
 }
