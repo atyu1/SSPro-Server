@@ -1,16 +1,19 @@
 package main
 
 import (
+	"net/http"
+	"flag"
 	"github.com/atyu1/SSPro-Server/controllers"
 	"github.com/atyu1/SSPro-Server/models"
 	"github.com/atyu1/SSPro-Server/auth"
 	"github.com/julienschmidt/httprouter"
-	"log"
-	"net/http"
+	"github.com/golang/glog"
 )
 
 func main() {
 
+	flag.Parse()
+	glog.Info("Program started")
 	//ToDo: Change to ENV or so
 	CONFIG_FILE := "./config.yaml"
 
@@ -25,6 +28,6 @@ func main() {
 	router.GET("/datapoints/all/*location", authentication.JWTAuth(controllers.GetDataPointAll))
 	router.POST("/datapoints", authentication.JWTAuth(controllers.CreateDataPoint))
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	glog.Fatal(http.ListenAndServe(":8080", router))
 	models.GetDb().Close()
 }
