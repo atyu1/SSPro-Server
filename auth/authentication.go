@@ -10,8 +10,6 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 )
 
-var TOKENPASS string = "test" 
-
 // JWTAuth is a custom handler which first verify if user has Token and it is authorized for API calls
 // We expect in HTTP header to have: Authorization: Bearer <token>
 func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
@@ -36,11 +34,11 @@ func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 		tk := &models.Token{}
 
 		token, err := jwt.ParseWithClaims(tokenTmp, tk, func(token *jwt.Token) (interface{}, error) {
-			return[]byte(TOKENPASS), nil
+			return[]byte(models.TokenPassword), nil
 		})
 
 		if err != nil {
-			if ve, ok := err.(*jwt.ValidationError); ok {
+			if ve, ok := err.(*jwt.ValidationError); !ok {
 				if ve.Errors & jwt.ValidationErrorMalformed != 0 {
 					statusForbiden("This is not token, token is totally malformed",w)
 				} else if ve.Errors & (jwt.ValidationErrorExpired | jwt.ValidationErrorNotValidYet) != 0 {

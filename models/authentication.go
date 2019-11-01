@@ -7,6 +7,9 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+//ToDo Add to config file
+var TokenPassword string = "ThisIsTokenPasswordTemporary"
+
 // JWT User struct
 type Token struct {
 	UserId uint
@@ -22,7 +25,7 @@ type User struct {
 	Token string `json:"token";sql:"-"`
 }
 
-func Login(email, password, tokenPassword string) (map[string]interface{}) {
+func Login(email, password string) (map[string]interface{}) {
 	user := &User{}
 
 	err := GetDb().Table("users").Where("email = ?",email).First(user).Error
@@ -42,7 +45,7 @@ func Login(email, password, tokenPassword string) (map[string]interface{}) {
 
 	token := &Token{UserId: user.ID}
 	jwtToken := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"),token)
-	tokenString, _ := jwtToken.SignedString([]byte(tokenPassword))
+	tokenString, _ := jwtToken.SignedString([]byte(TokenPassword))
 	user.Token = tokenString
 
 	resp := utils.Message(true, "Logged In")
