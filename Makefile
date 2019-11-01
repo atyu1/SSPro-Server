@@ -6,8 +6,7 @@ GOMAINFILE=main
 GOCMDLINUX=GOOS=linux go build -a -installsuffix cgo -o $(GOMAINFILE) .
 GOCMDGET=go get
 PORT=8080
-
-TS=$(shell /bin/date +%s)
+TS=$(shell /bin/date +%s )
 
 # ------- MAIN SECTION ---------
 help:
@@ -47,10 +46,18 @@ push:
 	git push -u origin $(shell git rev-parse --abbrev-ref HEAD)
 
 #------ TESTS ------
-test-local: test-post test-get-all
+test-local: test-token test-post test-get-all
+
+
+test-token:
+	@echo "======================================"
+	@echo "INFO: Install jq if you don't have it!"
+	@echo "======================================"
+	$(eval SSPRO_TOKEN = $(shell curl -s -XPOST http://localhost:8080/login -H "Content-Type: application/json" -d "{\"email\":\"test@test.com\", \"password\":\"test123\", \"token\":\"0\"}" | jq -r ".user.token"))
+	@echo "Token generated is: $(SSPRO_TOKEN)"
 
 test-post:
-	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -d '{"data":[{"timestamp":$(TS), "location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
+	curl -XPOST http://localhost:8080/datapoints -H "Content-Type: application/json" -H "Authorization: Bearer $(SSPRO_TOKEN)" -d '{"data":[{"timestamp":$(TS), "location":"kosice", "room":"bedroom", "name":"test", "sensor":"temperature", "value":20}]}'
 
 test-get-all:
-	curl http://localhost:8080/datapoints/all/
+	curl http://localhost:8080/datapoints/all/ -H "Authorization: Bearer $(SSPRO_TOKEN)" 
