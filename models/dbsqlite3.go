@@ -16,7 +16,12 @@ func InitDb(config DbAccess) {
 		log.Fatal("Connection to database failed!", fmt.Sprintf("%v", err))
 	}
 
+	//ToDo test user, remove it later!
+	user := &User{Email:"test@test.com", Password:"test123#", Token:""}
+
 	db.Debug().AutoMigrate(&Datapoint{})
+	db.Debug().AutoMigrate(&User{})
+	db.Debug().Create(&user)
 }
 
 func GetDb() *gorm.DB {
