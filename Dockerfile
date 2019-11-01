@@ -19,4 +19,4 @@ WORKDIR /app
 
 # Default command
 #ENTRYPOINT ["/app/main"]
-CMD ["/app/main"]
+CMD ["/app/main", "-logtostderr=true", "-stderrthreshold=INFO"]
