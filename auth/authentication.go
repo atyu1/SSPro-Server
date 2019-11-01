@@ -3,6 +3,8 @@ package authentication
 import (
 	"net/http"
 	"strings"
+	"fmt"
+	"github.com/golang/glog"
 	"github.com/atyu1/SSPro-Server/utils"
 	"github.com/julienschmidt/httprouter"
  	"github.com/atyu1/SSPro-Server/models"
@@ -15,8 +17,8 @@ var TOKENPASS string = "test"
 // We expect in HTTP header to have: Authorization: Bearer <token>
 func JWTAuth(h httprouter.Handle) (httprouter.Handle) {
 	return func(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
-		tokenHeader := param.ByName("Authorization")
-
+		tokenHeader := r.Header.Get("Authorization")
+		glog.Infof("TokenHeader: %s",tokenHeader)
 		// If Token is missing
 		if tokenHeader == "" {
 			statusForbiden("Missing Authorization Header", w)
