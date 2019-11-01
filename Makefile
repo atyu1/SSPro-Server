@@ -25,6 +25,7 @@ install: build-linux build-container
 build-linux:
 	$(GOCMDGET) "github.com/julienschmidt/httprouter"
 	$(GOCMDGET) "golang.org/x/crypto/bcrypt"
+	$(GOCMDGET) "github.com/golang/glog"
 	$(GOCMDLINUX)
 
 #Create a docker container
