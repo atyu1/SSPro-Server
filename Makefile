@@ -41,7 +41,9 @@ run:
 #Clean binaries + conatiners
 clean:
 	rm -rf ./$(GOMAINFILE)	
+	rm -rf /db/*
 	docker system prune -f
+	touch /db/test.db
 
 push:
 	git push -u origin $(shell git rev-parse --abbrev-ref HEAD)
