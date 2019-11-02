@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"net/http"
 	"encoding/json"
 	"github.com/atyu1/SSPro-Server/models"
-        "github.com/atyu1/SSPro-Server/utils"
-        "github.com/julienschmidt/httprouter"
+	"github.com/atyu1/SSPro-Server/utils"
+	"github.com/julienschmidt/httprouter"
+	"net/http"
 )
 
 //Login is a function to login through HTTP parameters

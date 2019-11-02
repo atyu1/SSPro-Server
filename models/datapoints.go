@@ -72,35 +72,34 @@ func GetDataPoints(query []int, params []string) (Datapoints, error) {
 	var err error
 	var (
 		location string
-		room	string
-		name string
+		room     string
+		name     string
 	)
 
 	for index, value := range params {
 		switch index {
-			case 1:
-				location = value
-			case 2: 
-				room = value
-			case 3:
-				name = value
+		case 1:
+			location = value
+		case 2:
+			room = value
+		case 3:
+			name = value
 		}
 	}
 
 	datapoints := []Datapoint{}
 
-	err = getAllDatapoints(&datapoints, location, room, name)	
+	err = getAllDatapoints(&datapoints, location, room, name)
 
 	return Datapoints{Data: datapoints}, err
 }
 
-
 /// ----------------------- Helper functions --------------
 /*getAllDatapoints is a helper fucntion for GetDataPoints used to get All (not per timestamp) datapoints for specific location, room, name
 
- returns error if datapoints are not collected, 
+returns error if datapoints are not collected,
 */
-func getAllDatapoints(dbpoints *[]Datapoint, location string, room string, name string) (error) {
+func getAllDatapoints(dbpoints *[]Datapoint, location string, room string, name string) error {
 	params := &Datapoint{Location: location, Room: room, Name: name}
 
 	err := GetDb().Table("Datapoints").Where(params).Find(&dbpoints).Error

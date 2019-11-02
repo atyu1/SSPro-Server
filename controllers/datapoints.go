@@ -2,13 +2,13 @@ package controllers
 
 import (
 	"encoding/json"
-	"strings"
-	"log"
 	"fmt"
-	"net/http"
 	"github.com/atyu1/SSPro-Server/models"
 	"github.com/atyu1/SSPro-Server/utils"
 	"github.com/julienschmidt/httprouter"
+	"log"
+	"net/http"
+	"strings"
 )
 
 func GetDataPointAll(w http.ResponseWriter, r *http.Request, param httprouter.Params) {
@@ -39,4 +39,3 @@ func CreateDataPoint(w http.ResponseWriter, r *http.Request, param httprouter.Pa
 	resp := tmpdatapoints.Save()
 	utils.Respond(w, resp)
 }
-

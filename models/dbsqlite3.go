@@ -17,7 +17,7 @@ func InitDb(config DbAccess) {
 	}
 
 	//ToDo test user, remove it later!
-	user := &User{Email:"test@test.com", Password:"test123#", Token:""}
+	user := &User{Email: "test@test.com", Password: "test123#", Token: ""}
 
 	db.Debug().AutoMigrate(&Datapoint{})
 	db.Debug().AutoMigrate(&User{})

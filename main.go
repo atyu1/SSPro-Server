@@ -1,13 +1,13 @@
 package main
 
 import (
-	"net/http"
 	"flag"
+	"github.com/atyu1/SSPro-Server/auth"
 	"github.com/atyu1/SSPro-Server/controllers"
 	"github.com/atyu1/SSPro-Server/models"
-	"github.com/atyu1/SSPro-Server/auth"
-	"github.com/julienschmidt/httprouter"
 	"github.com/golang/glog"
+	"github.com/julienschmidt/httprouter"
+	"net/http"
 )
 
 func main() {
