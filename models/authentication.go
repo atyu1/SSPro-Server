@@ -5,6 +5,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/golang/glog"
 )
 
 //ToDo Add to config file
@@ -31,12 +32,16 @@ func Login(email, password string) map[string]interface{} {
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
 			return utils.Message(false, "Email address not found")
+			glog.Error("Email address not found")
 		}
 		return utils.Message(false, "Database connection error")
+		glog.Errorf("Database connection issue: %v", err)
 	}
 
+	glog.Infof("Retrieved user for email(%s): %v)",email, user)
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))
-	if err == bcrypt.ErrMismatchedHashAndPassword {
+	if err != nil {
+		glog.Errorf("Password is not matching, %v", err)
 		return utils.Message(false, "Invalid login credentials")
 	}
 
@@ -46,6 +51,7 @@ func Login(email, password string) map[string]interface{} {
 	jwtToken := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), token)
 	tokenString, _ := jwtToken.SignedString([]byte(TokenPassword))
 	user.Token = tokenString
+	glog.Infof("Auth passed, new user with token is: %v", user)
 
 	resp := utils.Message(true, "Logged In")
 	resp["user"] = user
@@ -57,6 +63,7 @@ func GetUser(uid uint) *User {
 	GetDb().Table("User").Where("id = ?", uid).First(user)
 
 	if user.Email == "" { //User not found
+		glog.Error("GetUser ID failed due to email is not in DB or DB connection issue")
 		return nil
 	}
 

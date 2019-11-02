@@ -54,7 +54,7 @@ test-token:
 	@echo "======================================"
 	@echo "INFO: Install jq if you don't have it!"
 	@echo "======================================"
-	$(eval SSPRO_TOKEN = $(shell curl -s -XPOST http://localhost:8080/login -H "Content-Type: application/json" -d "{\"email\":\"test@test.com\", \"password\":\"test123\", \"token\":\"0\"}" | jq -r ".user.token"))
+	$(eval SSPRO_TOKEN = $(shell curl -s -XPOST http://localhost:8080/login -H "Content-Type: application/json" -d "{\"email\":\"test@test.com\", \"password\":\"test123#\", \"token\":\"0\"}" | jq -r ".user.token"))
 	@echo "Token generated is: $(SSPRO_TOKEN)"
 
 test-post:
