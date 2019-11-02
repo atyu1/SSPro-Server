@@ -1,9 +1,11 @@
 package models
 
 import (
+	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"golang.org/x/crypto/bcrypt"
+	"github.com/golang/glog"
 )
 
 var db *gorm.DB
@@ -19,7 +21,7 @@ func InitDb(config DbAccess) {
 	user := &User{Email: "test@test.com", Password: "test123#", Token: ""}
 
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	user.Password = hashedPassword
+	user.Password = string(hashedPassword)
 	glog.Infof("ToDo, remove this part later! Default user created: %v", user)
 
 	db.Debug().AutoMigrate(&Datapoint{})

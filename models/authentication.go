@@ -34,8 +34,8 @@ func Login(email, password string) map[string]interface{} {
 			return utils.Message(false, "Email address not found")
 			glog.Error("Email address not found")
 		}
-		return utils.Message(false, "Database connection error")
 		glog.Errorf("Database connection issue: %v", err)
+		return utils.Message(false, "Database connection error")
 	}
 
 	glog.Infof("Retrieved user for email(%s): %v)",email, user)
