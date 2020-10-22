@@ -1,5 +1,11 @@
 # SSPro-Server
 
+## Intro
+Monitoring focusing on collecting sensors data from RPI and sending to remote node.
+Data should be collected and sent to remote server where it will be presented via WebUI.
+Alerting for critical tresholds should be used.
+
+## Note
 ```
 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 ```
